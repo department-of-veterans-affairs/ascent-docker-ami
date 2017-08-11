@@ -1,0 +1,71 @@
+{
+  "variables": {
+    "aws_access_key": null,
+    "aws_secret_key": null,
+    "docker_store_url": null
+  },
+  "builders": [
+    {
+      "type": "amazon-ebs",
+      "access_key": "{{user `aws_access_key`}}",
+      "secret_key": "{{user `aws_secret_key`}}",
+      "region": "us-west-2",
+      "source_ami": "ami-9fa343e7",
+      "instance_type": "t2.micro",
+      "ssh_username": "ec2-user",
+      "ssh_pty": true,
+      "ami_name": "vets-docker {{timestamp}}",
+      "ami_block_device_mappings": [
+        {
+          "delete_on_termination": true,
+          "device_name": "/dev/sdb",
+          "volume_type": "gp2",
+          "volume_size": 20
+        }
+      ],
+      "launch_block_device_mappings": [
+        {
+          "device_name": "/dev/sda1",
+          "volume_size": 10,
+          "volume_type": "gp2",
+          "delete_on_termination": true
+        },
+        {
+          "delete_on_termination": true,
+          "device_name": "/dev/sdb",
+          "volume_type": "gp2",
+          "volume_size": 20
+        }
+      ],
+      "tags": {
+        "name": "vets-docker"
+      },
+      "snapshot_tags": 
+      {
+        "name": "vets-docker"
+      }
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "file",
+      "source": "daemon.json",
+      "destination": "/tmp/daemon.json"
+    },
+    {
+     "type": "file",
+     "source": "docker-thinpool.profile",
+     "destination": "/tmp/docker-thinpool.profile"
+    },
+    {
+      "type": "shell",
+      "environment_vars": [
+        "DOCKER_BASE_URL={{user `docker_store_url`}}"
+      ],
+      "scripts": [
+        "docker-lvm.sh",
+        "install-docker.sh"
+      ]
+    }
+  ]
+}
