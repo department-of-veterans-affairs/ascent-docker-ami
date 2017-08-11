@@ -11,3 +11,9 @@ Create JSON settings file containing AWS ID, key and Docker EE store url:
     }
 ```
 packer build -var-file=./your-settings-file docker-master.json
+
+
+
+
+## To do:
+research modifying master AMI systemd startup scripts to join existing swarm if provided or create new swarm if not
