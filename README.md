@@ -21,3 +21,4 @@ packer build -var-file=./your-settings-file docker-master.json
 - Volume sizing
 - Determine VA license information
 - correct instance size and region before running in govCloud
+- move all docker version settings to user defined variables?
