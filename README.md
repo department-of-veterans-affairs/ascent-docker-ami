@@ -16,4 +16,8 @@ packer build -var-file=./your-settings-file docker-master.json
 
 
 ## To do:
-research modifying master AMI systemd startup scripts to join existing swarm if provided or create new swarm if not
+- research modifying master AMI systemd startup scripts to join existing swarm if provided or create new swarm if not
+    - create worker script 
+- Volume sizing
+- Determine VA license information
+- correct instance size and region before running in govCloud
