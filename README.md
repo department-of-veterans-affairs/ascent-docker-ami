@@ -7,7 +7,8 @@ Create JSON settings file containing AWS ID, key and Docker EE store url:
     {
     "aws_access_key": "<your key value>",
     "aws_secret_key": "<your key value>",
-    "join_token": "<token of swarm to join, can be empty to initialize new swarm>"
+    "join_token": "<token of swarm to join, can be empty to initialize new swarm>",
+    "swarm_master": "<ip_address:port of a master node, leave empty to initialize a new swarm",
     "docker_store_url": "https://<your docker store url as provided via your docker subscription>"
     }
 ```
