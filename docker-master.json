@@ -3,6 +3,7 @@
     "aws_access_key": null,
     "aws_secret_key": null,
     "join_token":"",
+    "swarm_master":"",
     "docker_store_url": null
   },
   "builders": [
@@ -62,6 +63,7 @@
       "type": "shell",
       "environment_vars": [
         "DOCKER_BASE_URL={{user `docker_store_url`}}",
+	"DOCKER_SWARM_MASTER={{user `swarm_master`}}",
         "DOCKER_SWARM_TOKEN={{user `join_token`}}"
       ],
       "scripts": [
