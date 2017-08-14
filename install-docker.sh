@@ -2,7 +2,7 @@
 
 set -x
 
-echo ${DOCKER_BASE_URL}
+echo "Docker store url is ${DOCKER_BASE_URL}"
 
 DOCKER_VERSION=17.03
 
@@ -34,5 +34,7 @@ sudo chown root:root /etc/docker/daemon.json
 
 #enable docker service
 sudo  systemctl enable docker
+sudo systemctl start docker
+
 
 exit 0
