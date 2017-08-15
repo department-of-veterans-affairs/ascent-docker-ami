@@ -20,8 +20,9 @@ packer build -var-file=./your-settings-file docker-master.json
 
 ## To do:
 - ~~research modifying master AMI systemd startup scripts to join existing swarm if provided or create new swarm if not~~
-    - create worker script 
+    - ~~create worker script~~
 - Volume sizing
 - Determine VA license information
+    - Test using CentOS packages on RHEL if license not found
 - correct instance size and region before running in govCloud
 - move all docker version settings to user defined variables?
