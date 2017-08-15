@@ -5,7 +5,7 @@
 && sudo docker swarm join-token manager | sudo tee /etc/docker/swarm-manager-token && exit 0
 
 
-# Set swarm join at next restart so instance is in security group that is able to reach existing master
+# Set swarm join at startup when instance is in security group that is able to reach existing master
 [[ -n "$DOCKER_SWARM_TOKEN" ]] && [[ -n "$DOCKER_SWARM_MASTER" ]] && \
 sudo sed -i '/ExecStart=\/usr\/bin\/dockerd/ a ExecStartPost=-/usr/bin/docker swarm join --token '${DOCKER_SWARM_TOKEN}' '${DOCKER_SWARM_MASTER}'' \
 /usr/lib/systemd/system/docker.service && sudo systemctl daemon-reload && exit 0
