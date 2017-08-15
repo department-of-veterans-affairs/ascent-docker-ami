@@ -2,8 +2,8 @@
   "variables": {
     "aws_access_key": null,
     "aws_secret_key": null,
-    "join_token":"",
-    "swarm_master":"",
+    "join_token":null,
+    "swarm_master":null,
     "docker_store_url": null
   },
   "builders": [
@@ -16,7 +16,7 @@
       "instance_type": "t2.micro",
       "ssh_username": "ec2-user",
       "ssh_pty": true,
-      "ami_name": "vets-docker-master {{timestamp}}",
+      "ami_name": "vets-docker-worker {{timestamp}}",
       "ami_block_device_mappings": [
         {
           "delete_on_termination": true,
