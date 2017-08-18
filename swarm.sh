@@ -41,7 +41,7 @@ then
         let "Y %= 10"
 	sleep $Y
 	curl -sf $CONSUL_URL/docker/manager-tokens?recurse=true > /tmp/manager-tokens.json
-	if [ -e "/tmp/manager-tokens.json" ]
+	if [ -s "/tmp/manager-tokens.json" ]
 	then
 		#join as manager
 		declare -a MANAGERS=(`jq -r '.[] | {Key} | .Key' /tmp/worker-tokens.json`)
