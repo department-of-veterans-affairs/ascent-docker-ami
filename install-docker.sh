@@ -13,6 +13,8 @@ sudo yum -y remove docker \
 
 #basic packages and prereq
 sudo yum -y install wget unzip deltarpm nmap curl
+sudo wget -O /usr/bin/jq https://github.com/stedolan/jq/releases/download/jq-1.5/jq-linux64
+sudo chmod 755 /usr/bin/jq
 wget $DOCKER_SE_LINUX_PATH
 wget $DOCKER_PATH
 

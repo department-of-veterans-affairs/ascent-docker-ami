@@ -1,43 +1,68 @@
 #!/bin/bash
 
+###########################################################
+# Environment variables needed
+# CONSUL_URL -- protocol://host:port combination to reach consul on
+# NODE_TYPE -- Worker | Manager
+###########################################################
+
 set -x
 
-X=$RANDOM
-let "X %= 10"
-sleep $X
+INT_NAME=enp0s3
 
-# NODE_TYPE= Worker | Manager
-NODE_TYPE=XX_NODE_TYPE
-echo $NODE_TYPE
+MY_IP=`ip -o -4 addr show $INT_NAME | awk '{print $4}' | awk -F\/ '{print $1}'`
 
-#check if already in swarm
+#check if already in swarm (server restart)
 docker info | grep -w "Swarm: active" && exit 0
 
-# Get network number
-eval `ipcalc -n \`ifconfig -a eth0 | grep inet | grep -v inet6 | awk '{print $2}'\` \`ifconfig -a eth0 | grep inet | grep -v inet6 | awk '{print $4}'\``
+if [[ "$NODE_TYPE" == "Worker" ]]
+then
+	until $(curl -sf $CONSUL_URL/docker/worker-tokens?recurse=true);
+	do
+		echo "waiting for worker token to appear"
+	done
+	
+	curl -sf $CONSUL_URL/v1/kv/docker/worker-tokens?recurse=true > /tmp/worker-tokens.json
+	declare -a MANAGERS=(`jq -r '.[] | {Key} | .Key' /tmp/worker-tokens.json`)
+	declare -a TOKENS=(`jq -r '.[] | {Vaule} | .Value' /tmp/worker-tokens.json`)
+	COUNT=`jq -r 'length' /tmp/worker-tokens.json`
+	let COUNT=$COUNT-1
+	let X=0
+	while [ $X -le $COUNT ] 
+	do
+		docker swarm join --token=${TOKENS[$X]} ${MANAGERS[$X]} && exit 0
+		let $X=$X+1
+	done
+	exit 0
 
-# Get mask in cidr format
+elif [[ "$NODE_TYPE" == "Manager" ]]
+then
+	Y=$RANDOM
+        let "Y %= 10"
+	sleep $Y
+	curl -sf $CONSUL_URL/docker/manager-tokens?recurse=true > /tmp/manager-tokens.json
+	if [ -e "/tmp/manager-tokens.json" ]
+	then
+		#join as manager
+		declare -a MANAGERS=(`jq -r '.[] | {Key} | .Key' /tmp/worker-tokens.json`)
+        	declare -a TOKENS=(`jq -r '.[] | {Vaule} | .Value' /tmp/worker-tokens.json`)
+        	COUNT=`jq -r 'length' /tmp/worker-tokens.json`
+        	let COUNT=$COUNT-1
+        	let X=0
+        	while [ $X -le $COUNT ]
+        	do
+                	docker swarm join --token=${TOKENS[$X]} ${MANAGERS[$X]}
+                	let $X=$X+1
+        	done
+	
 
-eval `ipcalc -p \`ifconfig -a eth0 | grep inet | grep -v inet6 | awk '{print $2}'\` \`ifconfig -a eth0 | grep inet | grep -v inet6 | awk '{print $4}'\``
-
-echo $NETWORK $PREFIX
-
-export NETWORK
-export PREFIX
-
-nmap -n -p 2375 --open -oG /tmp/discovery.txt $NETWORK/$PREFIX >/dev/null
-
-for i in `grep 2375 /tmp/discovery.txt | awk '{print $2}'`
-        do
-        #echo $i
-        MGR_TOKEN=`curl -s $i:2375/swarm | tr ',' '\n'| grep SWMTKN | grep ${NODE_TYPE} | head -1 | sed -e 's/\}//g' -e 's/\"//g' | awk -F\: '{print $NF}'`
-        [[ -n "$MGR_TOKEN" ]] && docker swarm join --token ${MGR_TOKEN} $i:2377 && break
-        done
-
-
-#try to initialize in case no manager found
-[[ "$NODE_TYPE" == "Manager" ]] && docker swarm init
-
-[[ "$NODE_TYPE" == "Manager" ]] && docker node update --availability drain `docker node ls | grep \* | awk '{print $1}'`
-
-exit 0
+	else
+		#initialize swarm
+		docker swarm init
+	fi
+	# Store join tokens and drain 
+	curl -X PUT -d @- $CONSUL_URL/docker/manager-tokens/"${MY_IP}" <<< `docker swarm join-token manager`
+        curl -X PUT -d @- $CONSUL_URL/docker/worker-tokens/"${MY_IP}" <<< `docker swarm join-token worker`
+        docker node update --availability drain `docker node ls | grep \* | awk '{print $1}'`
+	exit 0
+fi	
