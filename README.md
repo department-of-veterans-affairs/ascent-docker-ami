@@ -10,7 +10,10 @@ Create JSON settings file containing AWS ID, key and Docker EE store url:
     "aws_secret_key": "<your key value>",
     "base_ami_id": "<id of the base rhel7 AMI",
     "image_type": "<Managaer | Worker>",
-    "docker_store_url": "https://<your docker store url as provided via your docker subscription>"
+    "aws_region": "<aws region>",
+    "docker_path": "https://download.docker.com/linux/centos/7/x86_64/stable/Packages/docker-ce-17.03.2.ce-1.el7.centos.x86_64.rpm",
+    "docker_store_url": "https://storebits.docker.com/ee/rhel/sub-f5747bba-b8a6-4af8-b155-23503b21dd66"
+   }
     }
 ```
 packer build -var-file=./your-settings-file docker-master.json
@@ -26,4 +29,5 @@ packer build -var-file=./your-settings-file docker-master.json
     - Test using CentOS packages on RHEL if license not found
 - correct instance size and region before running in govCloud
 - investigate cluster discovery alternatives, Consul?
-- move all docker version settings to user defined variables?
+    - current discovery is shell based network probe, not 100%
+- ~~move all docker version settings to user defined variables?~~

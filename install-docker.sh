@@ -2,12 +2,7 @@
 
 set -x
 
-echo "Docker store url is ${DOCKER_BASE_URL}"
-
-DOCKER_VERSION=17.03
-
-DOCKER_PACKAGE_NAME=docker-ee-17.03.2.ee.4-1.el7.centos.x86_64.rpm
-DOCKER_SELINUX_PKG_NAME=docker-ee-selinux-17.03.2.ee.4-1.el7.centos.noarch.rpm
+echo -e "Docker download urls: $DOCKER_SE_LINUX_PATH \n $DOCKER_PATH"
 
 #Remove potentially pre-loaded version
 sudo yum -y remove docker \
@@ -18,14 +13,12 @@ sudo yum -y remove docker \
 
 #basic packages and prereq
 sudo yum -y install wget unzip deltarpm nmap curl
-
-#get docker rpm
-wget ${DOCKER_BASE_URL}/rhel/7/x86_64/stable-${DOCKER_VERSION}/Packages/${DOCKER_PACKAGE_NAME}
-wget ${DOCKER_BASE_URL}/rhel/7/x86_64/stable-${DOCKER_VERSION}/Packages/${DOCKER_SELINUX_PKG_NAME}
+wget $DOCKER_SE_LINUX_PATH
+wget $DOCKER_PATH
 
 #install with yum
-sudo yum -y install ./${DOCKER_SELINUX_PKG_NAME}
-sudo yum -y install ./${DOCKER_PACKAGE_NAME}
+sudo yum -y install ./docker*selinux*rpm
+sudo yum -y install ./docker*x86_64*rpm
 
 #install daemon config
 sudo mkdir -p /etc/docker

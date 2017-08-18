@@ -69,7 +69,9 @@
       "type": "shell",
       "environment_vars": [
         "DOCKER_BASE_URL={{user `docker_store_url`}}",
-        "IMAGE_TYPE={{user `image_type`}}"
+        "IMAGE_TYPE={{user `image_type`}}",
+        "DOCKER_SE_LINUX_PATH={{user `docker_selinux_path`}}",
+        "DOCKER_PATH={{user `docker_path`}}"
       ],
       "scripts": [
         "docker-lvm.sh",
