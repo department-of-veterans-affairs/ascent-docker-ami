@@ -12,7 +12,7 @@ Create JSON settings file containing AWS ID, key and Docker EE store url:
     "image_type": "<Managaer | Worker>",
     "aws_region": "<aws region>",
     "docker_path": "https://download.docker.com/linux/centos/7/x86_64/stable/Packages/docker-ce-17.03.2.ce-1.el7.centos.x86_64.rpm",
-    "docker_store_url": "https://storebits.docker.com/ee/rhel/sub-f5747bba-b8a6-4af8-b155-23503b21dd66"
+    "docker_selinux_path": "https://download.docker.com/linux/centos/7/x86_64/stable/Packages/docker-ce-selinux-17.03.2.ce-1.el7.centos.noarch.rpm"
    }
     }
 ```
