@@ -8,7 +8,7 @@
 
 set -x
 
-INT_NAME=enp0s3
+INT_NAME=eth0
 
 MY_IP=`ip -o -4 addr show $INT_NAME | awk '{print $4}' | awk -F\/ '{print $1}'`
 
