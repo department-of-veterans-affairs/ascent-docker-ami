@@ -4,7 +4,9 @@
     "aws_secret_key": null,
     "aws_region": null,
     "base_ami_id": null,
-    "docker_store_url": null,
+    "docker_selinux_path": null,
+    "docker_path": null,
+    "consul_url": "",
     "image_type": null
   },
   "builders": [
@@ -71,7 +73,8 @@
         "DOCKER_BASE_URL={{user `docker_store_url`}}",
         "IMAGE_TYPE={{user `image_type`}}",
         "DOCKER_SE_LINUX_PATH={{user `docker_selinux_path`}}",
-        "DOCKER_PATH={{user `docker_path`}}"
+        "DOCKER_PATH={{user `docker_path`}}",
+        "CONSUL_URL={{user `consul_url`}}"
       ],
       "scripts": [
         "docker-lvm.sh",

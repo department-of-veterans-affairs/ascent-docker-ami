@@ -1,5 +1,4 @@
 {
-  "hosts": ["unix:///var/run/docker.sock","tcp://0.0.0.0:2375"],
   "storage-driver": "devicemapper",
    "storage-opts": [
     "dm.thinpooldev=/dev/mapper/docker-thinpool",
