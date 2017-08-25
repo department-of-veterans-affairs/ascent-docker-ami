@@ -8,7 +8,6 @@ Create JSON settings file containing AWS ID, key and Docker package urls, this e
     {
     "aws_access_key": "<your key value>",
     "aws_secret_key": "<your key value>",
-    "docker_store_url": "https://<your docker store url as provided via your docker subscription>"
     "aws_region": "us-east-1",
     "image_type": "<Manager|Worker>",
     "docker_selinux_path": "https://download.docker.com/linux/centos/7/x86_64/stable/Packages/docker-ce-selinux-17.03.2.ce-1.el7.centos.noarch.rpm",
