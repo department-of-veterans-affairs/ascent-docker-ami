@@ -22,6 +22,13 @@ wget $DOCKER_PATH
 sudo yum -y install ./docker*selinux*rpm
 sudo yum -y install ./docker*x86_64*rpm
 
+#create docker user account, don't create home directory to preserve ssh security in AWS
+#sudo useradd -r -m -g docker docker
+sudo useradd -r -g docker docker
+sudo passwd -f -u docker
+sudo mkdir -p /app/docker
+sudo chown -R docker:docker /app
+
 #install daemon config
 sudo mkdir -p /etc/docker
 sudo mv -f /tmp/daemon.json /etc/docker/daemon.json
