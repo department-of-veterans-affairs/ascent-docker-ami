@@ -6,8 +6,9 @@
     "base_ami_id": null,
     "docker_selinux_path": null,
     "docker_path": null,
-    "consul_url": "",
-    "image_type": null
+    "image_type": null,
+    "vault_token": "",
+    "vault_url": ""
   },
   "builders": [
     {
@@ -74,11 +75,14 @@
         "IMAGE_TYPE={{user `image_type`}}",
         "DOCKER_SE_LINUX_PATH={{user `docker_selinux_path`}}",
         "DOCKER_PATH={{user `docker_path`}}",
-        "CONSUL_URL={{user `consul_url`}}"
+        "VAULT_URL={{user `vault_url`}}",
+	"VAULT_TOKEN={{user `vault_token`}}"
       ],
       "scripts": [
+	"basic-packages.sh",
         "docker-lvm.sh",
-        "install-docker.sh"
+        "install-docker.sh",
+        "ssh-users.sh"
       ]
     }
   ]
