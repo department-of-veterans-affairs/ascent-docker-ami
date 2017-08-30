@@ -1,0 +1,16 @@
+{
+  "service": {
+    "name": "swarm",
+    "tags": ["Manager"],
+    "address": "",
+    "port": 2377,
+    "enableTagOverride": false,
+    "checks": [
+      {
+        "name": "docker swarm manager",
+        "tcp": "localhost:2377",
+        "interval": "1s"
+      }
+    ]
+  }
+}

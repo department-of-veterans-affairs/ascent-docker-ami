@@ -1,0 +1,7 @@
+{
+  "server": false,
+  "data_dir": "/app/consul/data",
+  "client_addr": "0.0.0.0",
+
+  "start_join": ["XX_CONSUL_ADDRESS"]
+}
