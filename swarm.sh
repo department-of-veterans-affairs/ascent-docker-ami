@@ -27,7 +27,7 @@ then
 elif [[ "$NODE_TYPE" == "Manager" ]]
 then
 	X=$RANDOM
-	let "X %= 10"
+	let "X %= 30"
 	sleep $X
 
 	MGR_IP=`dig +short @localhost -p 8600 manager.swarm.service.consul | head -1`
