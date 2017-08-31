@@ -36,8 +36,8 @@ then
 		docker swarm join --token `consul kv get docker/swarm/manager` $MGR_IP:2377
 	else
 		docker swarm init
-		consul kv put docker/swarm/manager `docker swarm -q join-token manager`
-		consul kv put docker/swarm/worker `docker swarm -q join-token worker`
+		consul kv put docker/swarm/manager `docker swarm join-token -q manager`
+		consul kv put docker/swarm/worker `docker swarm join-token -q worker`
 	fi
         docker node update --availability drain `docker node ls | grep \* | awk '{print $1}'`
 fi	

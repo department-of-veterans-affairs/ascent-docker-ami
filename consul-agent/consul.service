@@ -1,6 +1,7 @@
 [Unit]
 Description=Consul
 Requires=network-online.target
+Before=docker.service
 After=network-online.target
 
 [Service]
@@ -10,4 +11,4 @@ ExecReload=/bin/kill -HUP $MAINPID
 KillSignal=SIGTERM
 
 [Install]
-WantedBy=multi-user.target docker.service
+WantedBy=multi-user.target

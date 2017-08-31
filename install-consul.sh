@@ -7,9 +7,16 @@ rm /tmp/consul.zip
 sudo chown root:root consul
 sudo chmod 755 consul
 sudo mv consul /usr/bin/consul
-sed -i 's,'XX_CONSUL_ADDRESS','"$CONSUL_ADDRESS"',' /tmp/consul-config.json
+echo "${CONSUL_ADDRESS/=/}"
+sed -i 's,'XX_CONSUL_ADDRESS','"${CONSUL_ADDRESS/=/}"',' /tmp/consul-config.json
 sudo mv /tmp/consul-config.json /app/consul/config
-sudo mv /tmp/swarm-manager.json /app/consul/config
+if [ "$IMAGE_TYPE" == "Manager" ]
+then
+	sudo mv /tmp/swarm-manager.json /app/consul/config
+elif [ "$IMAGE_TYPE" == "Worker" ]
+then 
+	sudo mv /tmp/swarm-worker.json /app/consul/config
+fi
 
 
 # Install Consul as a Service
