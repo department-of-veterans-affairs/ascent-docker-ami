@@ -18,3 +18,6 @@ Create JSON settings file containing AWS ID, key and Docker package urls, this e
     }
 ```
 packer build -var-file=./your-settings-file docker.json
+
+## Swarm
+Most recent swarm discovery can be found in the "consul_swarm" branch
