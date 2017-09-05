@@ -6,7 +6,7 @@ After=network-online.target
 
 [Service]
 Restart=on-failure
-ExecStart=/usr/bin/consul agent -config-dir /app/consul/config
+ExecStart=/app/consul/startconsul.sh
 ExecReload=/bin/kill -HUP $MAINPID
 KillSignal=SIGTERM
 
