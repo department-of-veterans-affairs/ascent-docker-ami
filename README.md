@@ -3,7 +3,7 @@ Packer script to create docker rhel 7 AMI on AWS using lvm storage and productio
 This install only sets up the software and ssh access to the docker user.  It does not create or join a swarm.  
 
 ## To run
-Create JSON settings file containing AWS ID, key, instance type, and Vault details (for ssh machine access integratio).
+Create JSON settings file containing AWS ID, key, instance type, and Vault details (for ssh machine access integration).
 ```
 
     {
