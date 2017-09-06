@@ -45,11 +45,11 @@
         }
       ],
       "tags": {
-        "name": "vets-docker"
+        "Name": "vets-docker"
       },
       "snapshot_tags": 
       {
-        "name": "vets-docker"
+        "Name": "vets-docker"
       }
     }
   ],
