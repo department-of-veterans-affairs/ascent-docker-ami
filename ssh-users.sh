@@ -11,6 +11,7 @@ sudo cat /etc/selinux/config
 sudo setenforce Permissive
 
 sudo cp -p /etc/ssh/sshd_config /etc/ssh/sshd_config.orig
+sudo sed -i 's@AuthorizedKeysFile .ssh/authorized_keys@AuthorizedKeysFile none@' /etc/ssh/sshd_config
 sudo sed -i 's@#AuthorizedKeysCommand none@AuthorizedKeysCommand /etc/ssh/ssh-command.sh@' /etc/ssh/sshd_config
 sudo sed -i 's@#AuthorizedKeysCommandUser nobody@AuthorizedKeysCommandUser nobody@' /etc/ssh/sshd_config
 sudo sed -i 's@#AuthorizedKeysCommandUser nobody@AuthorizedKeysCommandUser nobody@' /etc/ssh/sshd_config
@@ -33,9 +34,14 @@ cat > /tmp/ssh-command.sh << 'EOF'
 VAULT_URL=XX_VAULT_URL
 VAULT_READ_TOKEN=XX_VAULT_READ_TOKEN
 
-
+if [ "$1" == "ec2-user" ]
+then
+        curl -s http://169.254.169.254/latest/meta-data/public-keys/0/openssh-key
+        exit 0
+else
 # Check vault
 curl -sk -H "X-Vault-Token:$VAULT_READ_TOKEN" $VAULT_URL$1 | jq -r '.data|join("\n")'
+fi
 
 exit 0
 EOF

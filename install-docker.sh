@@ -18,9 +18,9 @@ sudo groupadd docker
 sudo yum-config-manager --enable rhui-REGION-rhel-server-extras
 sudo yum -y install docker
 
-#create docker user account, don't create home directory to preserve ssh security in AWS
-#sudo useradd -r -m -g docker docker
-sudo useradd -r -g docker docker
+#create docker user account
+sudo useradd -r -m -g docker docker
+#sudo useradd -r -g docker docker
 sudo passwd -f -u docker
 sudo mkdir -p /app/docker
 sudo chown -R docker:docker /app
