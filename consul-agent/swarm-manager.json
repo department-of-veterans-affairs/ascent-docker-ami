@@ -1,6 +1,6 @@
 {
   "service": {
-    "name": "swarm",
+    "name": "swarm-XX_SG",
     "tags": ["Manager"],
     "address": "",
     "port": 2377,
