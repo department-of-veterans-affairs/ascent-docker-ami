@@ -18,3 +18,6 @@ Create JSON settings file containing AWS ID, key, instance type, and Vault detai
     }
 ```
 packer build -var-file=./your-settings-file docker.json
+
+## Swarm
+Most recent swarm discovery can be found in the "consul_swarm" branch
