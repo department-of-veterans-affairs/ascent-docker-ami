@@ -1,0 +1,14 @@
+[Unit]
+Description=Consul
+Requires=network-online.target
+Before=docker.service
+After=network-online.target
+
+[Service]
+Restart=on-failure
+ExecStart=/app/consul/startconsul.sh
+ExecReload=/bin/kill -HUP $MAINPID
+KillSignal=SIGTERM
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,6 @@
+{
+  "service": {
+    "name": "swarm-XX_SG",
+    "tags": ["Worker"]
+      }
+}

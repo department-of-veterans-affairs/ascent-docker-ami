@@ -7,6 +7,7 @@
     "docker_selinux_path": null,
     "docker_path": null,
     "image_type": null,
+    "consul_address": null,
     "vault_token": "",
     "vault_url": ""
   },
@@ -48,7 +49,7 @@
       },
       "snapshot_tags": 
       {
-        "name": "vets-docker"
+        "Name": "vets-docker"
       }
     }
   ],
@@ -64,12 +65,23 @@
      "destination": "/tmp/docker-thinpool.profile"
     },
     {
+     "type": "file",
+     "source": "swarm.sh",
+     "destination": "/tmp/swarm.sh"
+    },
+    {
+     "type": "file",
+     "source": "./consul-agent/",
+     "destination": "/tmp"
+    },
+    {
       "type": "shell",
       "environment_vars": [
         "DOCKER_BASE_URL={{user `docker_store_url`}}",
         "IMAGE_TYPE={{user `image_type`}}",
         "DOCKER_SE_LINUX_PATH={{user `docker_selinux_path`}}",
         "DOCKER_PATH={{user `docker_path`}}",
+        "CONSUL_ADDRESS=={{user `consul_address`}}",
         "VAULT_URL={{user `vault_url`}}",
 	"VAULT_TOKEN={{user `vault_token`}}"
       ],
@@ -77,6 +89,7 @@
 	"basic-packages.sh",
         "docker-lvm.sh",
         "install-docker.sh",
+	"install-consul.sh",
         "ssh-users.sh"
       ]
     }

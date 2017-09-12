@@ -35,4 +35,11 @@ sudo  systemctl enable docker
 sudo systemctl start docker
 
 
+#setup swarm script
+sudo mv -f /tmp/swarm.sh /etc/docker/swarm.sh
+sudo chown root:root /etc/docker/swarm.sh
+sudo sed -i 's/XX_NODE_TYPE/'${IMAGE_TYPE}'/' /etc/docker/swarm.sh
+sudo chmod 750 /etc/docker/swarm.sh
+ sudo sed -i '/ExecReload=\/bin\/kill\ \-s\ HUP\ \$MAINPID/ i ExecStartPost=-/etc/docker/swarm.sh' \
+ /usr/lib/systemd/system/docker.service && sudo systemctl daemon-reload
 exit 0
