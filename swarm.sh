@@ -12,7 +12,7 @@
 NODE_TYPE=XX_NODE_TYPE
 
 docker info | grep -w "Swarm: active" && exit 0
-SG=`curl -s http://169.254.169.254/latest/meta-data/security-groups`
+SG=`curl -s http://169.254.169.254/latest/meta-data/security-groups | tr '\n' '\-'`
 MGR_IP=""
 
 if [[ "$NODE_TYPE" == "Worker" ]]

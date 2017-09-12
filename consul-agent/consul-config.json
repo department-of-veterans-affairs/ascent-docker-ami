@@ -2,5 +2,5 @@
   "server": false,
   "data_dir": "/app/consul/data",
 
-  "start_join": ["XX_CONSUL_ADDRESS"]
+  "retry_join": ["provider=aws tag_key=consul-group tag_value=vault"]
 }

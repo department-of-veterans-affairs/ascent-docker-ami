@@ -9,8 +9,8 @@ sudo chmod 755 consul
 sudo mv consul /usr/bin/consul
 sudo mv /tmp/startconsul.sh /app/consul
 sudo chmod 755 /app/consul/startconsul.sh
-echo "${CONSUL_ADDRESS/=/}"
-sed -i 's,'XX_CONSUL_ADDRESS','"${CONSUL_ADDRESS/=/}"',' /tmp/consul-config.json
+#echo "${CONSUL_ADDRESS/=/}"
+#sed -i 's,'XX_CONSUL_ADDRESS','"${CONSUL_ADDRESS/=/}"',' /tmp/consul-config.json
 sudo mv /tmp/consul-config.json /app/consul/config
 if [ "$IMAGE_TYPE" == "Manager" ]
 then
