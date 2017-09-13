@@ -75,7 +75,6 @@
         "IMAGE_TYPE={{user `image_type`}}"
       ],
       "scripts": [
-	"basic-packages.sh",
         "docker-lvm.sh",
         "install-docker.sh",
 	"install-consul.sh"

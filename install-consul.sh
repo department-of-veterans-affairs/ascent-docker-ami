@@ -1,5 +1,7 @@
 #!/bin/bash -ex
 
+sudo yum -y install bind-utils unzip
+sudo useradd -r -s /sbin/nologin consul
 sudo mkdir -p /app/consul/data /app/consul/config
 curl -s https://releases.hashicorp.com/consul/0.9.2/consul_0.9.2_linux_amd64.zip > /tmp/consul.zip
 unzip /tmp/consul.zip
@@ -19,7 +21,7 @@ elif [ "$IMAGE_TYPE" == "Worker" ]
 then 
 	sudo mv /tmp/swarm-worker.json /app/consul/config
 fi
-
+sudo chown -R consul:consul /app/consul
 
 # Install Consul as a Service
 sudo mv /tmp/consul.service /etc/systemd/system/consul.service
