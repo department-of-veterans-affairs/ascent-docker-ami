@@ -17,7 +17,7 @@ sudo mv /tmp/docker-thinpool.profile /etc/lvm/profile/docker-thinpool.profile
 sudo chown root:root /etc/lvm/profile/docker-thinpool.profile
 sudo lvchange --metadataprofile docker-thinpool docker/thinpool
 sudo lvs -o+seg_monitor
-sudo mkdir -p /var/lib/docker.bk
-test -d /var/lib/docker && sudo mv -f /var/lib/docker/* /var/lib/docker.bk
+sudo mkdir -p /var/lib/docker-latest.bk
+test -d /var/lib/docker-latest && sudo mv -f /var/lib/docker-latest/* /var/lib/docker-latest.bk
 
 exit 0

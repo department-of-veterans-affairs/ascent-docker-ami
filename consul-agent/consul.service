@@ -1,7 +1,7 @@
 [Unit]
 Description=Consul
 Requires=network-online.target
-Before=docker.service
+Before=docker-latest.service
 After=network-online.target
 
 [Service]
