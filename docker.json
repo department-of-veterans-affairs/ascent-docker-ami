@@ -75,6 +75,11 @@
      "destination": "/tmp"
     },
     {
+      "type": "file",
+      "source": "registries.conf",
+      "destination": "/tmp/registries.conf"
+     },
+    {
       "type": "shell",
       "environment_vars": [
         "IMAGE_TYPE={{user `image_type`}}"
