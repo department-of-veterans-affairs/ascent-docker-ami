@@ -14,5 +14,5 @@ Create JSON settings file containing AWS ID, key, region, and instance type.
     "image_type": "<Manager|Worker>"
     }
 ```
-packer build -var-file=./your-settings-file docker.json
+packer build -var-file=./your-settings-file -var 'image_type=Worker' docker.json
 
