@@ -79,6 +79,11 @@
       "source": "registries.conf",
       "destination": "/tmp/registries.conf"
      },
+     {
+      "type": "file",
+      "source": "./certificates/",
+      "destination": "/tmp"
+     },
     {
       "type": "shell",
       "environment_vars": [
@@ -86,6 +91,7 @@
       ],
       "scripts": [
         "docker-lvm.sh",
+        "install-vault-ca.sh",
         "install-docker.sh",
         "install-consul.sh",
         "config-sysctl.sh"
