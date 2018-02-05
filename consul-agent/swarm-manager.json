@@ -7,11 +7,6 @@
     "enableTagOverride": false,
     "checks": [
       {
-        "name": "docker swarm communication",
-        "tcp": "localhost:2377",
-        "interval": "1s"
-      },
-      {
         "name": "docker daemon",
         "tcp": "localhost:2375",
         "interval": "1s"
