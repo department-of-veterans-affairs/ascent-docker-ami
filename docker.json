@@ -37,6 +37,12 @@
           "volume_size": 500,
           "volume_type": "gp2",
           "delete_on_termination": true
+        },
+        {
+          "delete_on_termination": true,
+          "device_name": "/dev/sdb",
+          "volume_type": "gp2",
+          "volume_size": 20
         }
       ],
       "tags": {
