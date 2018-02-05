@@ -3,7 +3,8 @@
     "aws_access_key": null,
     "aws_secret_key": null,
     "aws_region": null,
-    "base_ami_id": null,
+    "ami_version": "{{timestamp}}",
+    "base_ami_version": "*",
     "image_type": null
   },
   "builders": [
@@ -12,31 +13,30 @@
       "access_key": "{{user `aws_access_key`}}",
       "secret_key": "{{user `aws_secret_key`}}",
       "region": "{{user `aws_region`}}",
-      "source_ami": "{{user `base_ami_id`}}",
+      "source_ami_filter": {
+        "filters": {
+          "name": "ascent-base-{{user `base_ami_version`}}"
+        },
+        "most_recent": true
+      },
       "instance_type": "t2.micro",
       "ssh_username": "ec2-user",
       "ssh_pty": true,
-      "ami_name": "vets-docker-{{user `image_type`}} {{timestamp}}",
+      "ami_name": "vets-docker-{{user `image_type`}} {{user `ami_version`}}",
       "ami_block_device_mappings": [
         {
           "delete_on_termination": true,
           "device_name": "/dev/sdb",
           "volume_type": "gp2",
-          "volume_size": 20
+          "volume_size": 500
         }
       ],
       "launch_block_device_mappings": [
         {
           "device_name": "/dev/sda1",
-          "volume_size": 10,
+          "volume_size": 500,
           "volume_type": "gp2",
           "delete_on_termination": true
-        },
-        {
-          "delete_on_termination": true,
-          "device_name": "/dev/sdb",
-          "volume_type": "gp2",
-          "volume_size": 20
         }
       ],
       "tags": {
@@ -49,6 +49,12 @@
     }
   ],
   "provisioners": [
+    {
+      "type": "shell",
+      "inline": [
+          "sudo yum -y update"
+      ]
+    },
     {
       "type": "file",
       "source": "sysctl.d",

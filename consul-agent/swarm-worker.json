@@ -1,6 +1,21 @@
 {
   "service": {
     "name": "swarm-XX_SG",
-    "tags": ["Worker"]
+    "tags": ["Worker"],
+    "address": "",
+    "port": 2375,
+    "enableTagOverride": false,
+    "checks": [
+      {
+        "name": "docker swarm communications",
+        "tcp": "localhost:2377",
+        "interval": "1s"
+      },
+      {
+        "name": "docker daemon",
+        "tcp": "localhost:2375",
+        "interval": "1s"
       }
+    ]
+  }
 }
