@@ -42,8 +42,6 @@ sudo mv -f /tmp/swarm.sh /etc/docker-latest/swarm.sh
 sudo chown root:root /etc/docker-latest/swarm.sh
 sudo sed -i 's/XX_NODE_TYPE/'${IMAGE_TYPE}'/' /etc/docker-latest/swarm.sh
 sudo chmod 750 /etc/docker-latest/swarm.sh
-sudo sed -i '/ADD_REGISTRY=/ c \
-ADD_REGISTRY="--add-registry index.docker.io"' /etc/sysconfig/docker-latest
 sudo sed -i '/--authorization-plugin=rhel-push-plugin/ d' /usr/lib/systemd/system/docker-latest.service
 sudo sed -i '/LimitNPROC=1048576/ i LimitMEMLOCK=infinity' /usr/lib/systemd/system/docker-latest.service
  sudo sed -i '/ExecReload=\/bin\/kill\ \-s\ HUP\ \$MAINPID/ i ExecStartPost=-/etc/docker-latest/swarm.sh' \
