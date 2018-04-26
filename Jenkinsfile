@@ -1,6 +1,7 @@
 @Library('ascent') _
 
 packerPipeline {
+    directory = 'packer'
     packerFile = 'docker.json'
     vars = [
         aws_region: 'us-gov-west-1',
@@ -9,6 +10,7 @@ packerPipeline {
 }
 
 packerPipeline {
+    directory = 'packer'
     packerFile = 'docker.json'
     vars = [
         aws_region: 'us-gov-west-1',

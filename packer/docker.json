@@ -4,8 +4,9 @@
     "aws_secret_key": null,
     "aws_region": null,
     "ami_version": "{{timestamp}}",
-    "base_ami_version": "*",
-    "image_type": null
+    "consul_ami_version": "*",
+    "consul_version": "1.0.7",
+    "consul_module_version": "v0.3.3"
   },
   "builders": [
     {
@@ -13,16 +14,19 @@
       "access_key": "{{user `aws_access_key`}}",
       "secret_key": "{{user `aws_secret_key`}}",
       "region": "{{user `aws_region`}}",
+      "vpc_id": "{{user `vpc_id`}}",
+      "subnet_id": "{{user `subnet_id`}}",
+      "associate_public_ip_address": true,
       "source_ami_filter": {
         "filters": {
-          "name": "ascent-base-{{user `base_ami_version`}}"
+          "name": "ascent-base-{{user `consul_ami_version`}}"
         },
         "most_recent": true
       },
       "instance_type": "t2.micro",
       "ssh_username": "ec2-user",
       "ssh_pty": true,
-      "ami_name": "vets-docker-{{user `image_type`}} {{user `ami_version`}}",
+      "ami_name": "docker-consul-{{user `ami_version`}}",
       "ami_block_device_mappings": [
         {
           "delete_on_termination": true,
@@ -37,20 +41,14 @@
           "volume_size": 500,
           "volume_type": "gp2",
           "delete_on_termination": true
-        },
-        {
-          "delete_on_termination": true,
-          "device_name": "/dev/sda1",
-          "volume_type": "gp2",
-          "volume_size": 20
         }
       ],
       "tags": {
-        "Name": "vets-docker"
+        "Name": "docker-consul-{{user `ami_version`}}"
       },
       "snapshot_tags": 
       {
-        "Name": "vets-docker"
+        "Name": "docker-consul-{{user `ami_version`}}"
       }
     }
   ],
@@ -60,6 +58,17 @@
       "inline": [
           "sudo yum -y update"
       ]
+    },
+    {
+      "type": "shell",
+      "inline": [
+          "sudo yum -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm",
+          "sudo yum -y install git python-pip",
+          "git clone --branch {{user `consul_module_version`}} https://github.com/hashicorp/terraform-aws-consul.git /tmp/terraform-aws-consul",
+          "/tmp/terraform-aws-consul/modules/install-consul/install-consul --version {{user `consul_version`}}",
+          "/tmp/terraform-aws-consul/modules/install-dnsmasq/install-dnsmasq"
+      ],
+      "pause_before": "30s"
     },
     {
       "type": "file",
@@ -82,19 +91,9 @@
      "destination": "/tmp/swarm.sh"
     },
     {
-     "type": "file",
-     "source": "./consul-agent/",
-     "destination": "/tmp"
-    },
-    {
       "type": "file",
       "source": "registries.conf",
       "destination": "/tmp/registries.conf"
-     },
-     {
-      "type": "file",
-      "source": "./certificates/",
-      "destination": "/tmp"
      },
     {
       "type": "shell",
@@ -103,9 +102,7 @@
       ],
       "scripts": [
         "docker-lvm.sh",
-        "install-vault-ca.sh",
         "install-docker.sh",
-        "install-consul.sh",
         "config-sysctl.sh"
       ]
     }

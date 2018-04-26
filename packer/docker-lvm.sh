@@ -1,8 +1,5 @@
 #! /bin/bash -e
 
-# update
-sudo yum -y update
-
 set -x
 
 #lvm creation for docker version < 17.06 production
