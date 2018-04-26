@@ -5,7 +5,6 @@
     "aws_region": null,
     "ami_version": "{{timestamp}}",
     "consul_ami_version": "*",
-    "image_type": null,
     "consul_version": "1.0.7",
     "consul_module_version": "v0.3.3"
   },
@@ -27,7 +26,7 @@
       "instance_type": "t2.micro",
       "ssh_username": "ec2-user",
       "ssh_pty": true,
-      "ami_name": "docker-{{user `image_type`}}-{{user `ami_version`}}",
+      "ami_name": "docker-consul-{{user `ami_version`}}",
       "ami_block_device_mappings": [
         {
           "delete_on_termination": true,
@@ -45,11 +44,11 @@
         }
       ],
       "tags": {
-        "Name": "docker-{{user `image_type`}}-{{user `ami_version`}}"
+        "Name": "docker-consul-{{user `ami_version`}}"
       },
       "snapshot_tags": 
       {
-        "Name": "docker-{{user `image_type`}}-{{user `ami_version`}}"
+        "Name": "docker-consul-{{user `ami_version`}}"
       }
     }
   ],
@@ -95,11 +94,6 @@
       "type": "file",
       "source": "registries.conf",
       "destination": "/tmp/registries.conf"
-     },
-     {
-      "type": "file",
-      "source": "./certificates/",
-      "destination": "/tmp"
      },
     {
       "type": "shell",
