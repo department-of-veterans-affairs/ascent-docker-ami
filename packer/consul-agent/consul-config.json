@@ -1,7 +1,0 @@
-{
-  "server": false,
-  "data_dir": "/app/consul/data",
-
-  "retry_join": ["provider=aws tag_key=consul-group tag_value=vault"],
-  "skip_leave_on_interrupt": false
-}
