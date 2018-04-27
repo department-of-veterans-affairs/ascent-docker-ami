@@ -87,11 +87,11 @@ variable "swarm_tag_key" {
   default     = "Name"
 }
 
-variable "swarm_extra_tags" {
+variable "tags" {
   description = "A list of additional tags to add to each Instance in the ASG. Each element in the list must be a map with the keys key, value, and propagate_at_launch"
   type = "list"
   #example: 
-  # default = [
+  # tags = [
   #   {
   #     key = "Environment"
   #     value = "Dev"

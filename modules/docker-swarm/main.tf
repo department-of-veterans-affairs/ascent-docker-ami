@@ -28,12 +28,14 @@ resource "aws_autoscaling_group" "autoscaling_group_manager" {
   health_check_grace_period = "${var.health_check_grace_period}"
   wait_for_capacity_timeout = "${var.wait_for_capacity_timeout}"
 
-  // tags = ["${concat(
-  //   list(
-  //     map("key", "Name", "value", "${var.swarm_name}-manager", "propagate_at_launch", true)
-  //   ),
-  //   var.cluster_extra_tags)
-  // }"]
+  tags = [
+    {
+      key                 = "Name"
+      value               = "${var.swarm_name}-managers"
+      propagate_at_launch = true
+    },
+    "${var.tags}",
+  ]
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
@@ -94,12 +96,14 @@ resource "aws_autoscaling_group" "autoscaling_group_worker" {
   health_check_grace_period = "${var.health_check_grace_period}"
   wait_for_capacity_timeout = "${var.wait_for_capacity_timeout}"
 
-  // tags = ["${concat(
-  //   list(
-  //     map("key", "Name", "value", "${var.swarm_name}-manager", "propagate_at_launch", true)
-  //   ),
-  //   var.cluster_extra_tags)
-  // }"]
+  tags = [
+    {
+      key                 = "Name"
+      value               = "${var.swarm_name}-workers"
+      propagate_at_launch = true
+    },
+    "${var.tags}",
+  ]
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
