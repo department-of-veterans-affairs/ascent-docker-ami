@@ -28,10 +28,6 @@ sudo mkdir -p /etc/docker-latest
 sudo mv -f /tmp/daemon.json /etc/docker-latest/daemon.json
 sudo chown root:root /etc/docker-latest/daemon.json
 
-#Install Repository List
-sudo mv -f /tmp/registries.conf /etc/containers/registries.conf
-sudo chown root:root /etc/containers/registries.conf
-
 #enable docker service
 sudo  systemctl enable docker-latest
 sudo systemctl start docker-latest

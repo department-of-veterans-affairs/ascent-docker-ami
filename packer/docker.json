@@ -4,7 +4,7 @@
     "aws_secret_key": null,
     "aws_region": null,
     "ami_version": "{{timestamp}}",
-    "consul_ami_version": "*",
+    "base_ami_version": "*",
     "consul_version": "1.0.7",
     "consul_module_version": "v0.3.3"
   },
@@ -19,7 +19,7 @@
       "associate_public_ip_address": true,
       "source_ami_filter": {
         "filters": {
-          "name": "ascent-base-{{user `consul_ami_version`}}"
+          "name": "ascent-base-{{user `base_ami_version`}}"
         },
         "most_recent": true
       },
@@ -91,15 +91,7 @@
      "destination": "/tmp/swarm.sh"
     },
     {
-      "type": "file",
-      "source": "registries.conf",
-      "destination": "/tmp/registries.conf"
-     },
-    {
       "type": "shell",
-      "environment_vars": [
-        "IMAGE_TYPE={{user `image_type`}}"
-      ],
       "scripts": [
         "docker-lvm.sh",
         "install-docker.sh",
