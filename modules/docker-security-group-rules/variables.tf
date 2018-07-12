@@ -12,6 +12,11 @@ variable "allowed_inbound_cidr_blocks" {
   type        = "list"
 }
 
+variable "allowed_monitor_cidr_blocks" {
+  description = "A list of CIDR-formatted IP address ranges from which the EC2 Instances will allow connections from monitor server"
+  type        = "list"
+}
+
 variable "allowed_inbound_security_group_ids" {
   description = "A list of security group IDs that will be allowed to connect to Docker"
   type        = "list"
@@ -41,3 +46,9 @@ variable "overlay_network_port" {
   description = "UDP port for overlay network traffic (container ingress networking)."
   default     = 4789
 }
+
+variable "monitor_port" {
+  description = "TCP port for monitoring."
+  default     = 9100
+}
+
