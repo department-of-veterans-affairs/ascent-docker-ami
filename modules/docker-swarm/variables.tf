@@ -177,3 +177,8 @@ variable "ssh_port" {
   description = "The port used for SSH connections"
   default     = 22
 }
+
+variable "monitor_security_group" {
+  description = "security group to allow monitor server to get metrics"
+  default     = ""
+}
