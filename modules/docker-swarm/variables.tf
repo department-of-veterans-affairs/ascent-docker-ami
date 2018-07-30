@@ -178,7 +178,3 @@ variable "ssh_port" {
   default     = 22
 }
 
-variable "monitor_security_group" {
-  description = "security group to allow monitor server to get metrics"
-  default     = ""
-}
