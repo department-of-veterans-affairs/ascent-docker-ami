@@ -16,6 +16,7 @@
       "region": "{{user `aws_region`}}",
       "vpc_id": "{{user `vpc_id`}}",
       "subnet_id": "{{user `subnet_id`}}",
+      "associate_public_ip_address": true,
       "source_ami_filter": {
         "filters": {
           "name": "ascent-base-{{user `base_ami_version`}}"
