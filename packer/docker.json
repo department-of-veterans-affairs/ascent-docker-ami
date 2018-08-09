@@ -46,7 +46,7 @@
       "tags": {
         "Name": "docker-consul-{{user `ami_version`}}"
       },
-      "snapshot_tags": 
+      "snapshot_tags":
       {
         "Name": "docker-consul-{{user `ami_version`}}"
       }
@@ -79,6 +79,11 @@
       "type": "file",
       "source": "daemon.json",
       "destination": "/tmp/daemon.json"
+    },
+    {
+      "type": "file",
+      "source": "daemon-expose-metrics.json",
+      "destination": "/tmp/daemon-expose-metrics.json"
     },
     {
      "type": "file",

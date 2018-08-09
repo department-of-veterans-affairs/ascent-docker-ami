@@ -1,0 +1,11 @@
+{
+  "hosts": ["unix:///var/run/docker.sock","tcp://0.0.0.0:2375"],
+  "metrics-addr" : "IP:METRICSPORT",
+  "experimental" : true,
+
+  "storage-driver": "devicemapper",
+   "storage-opts": [
+    "dm.thinpooldev=/dev/mapper/docker-thinpool",
+    "dm.use_deferred_removal=true"
+  ]
+}
