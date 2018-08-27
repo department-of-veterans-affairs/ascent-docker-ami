@@ -1,0 +1,6 @@
+  "tlsverify" : true,
+
+  "tlscacert" : "/etc/docker-latest/certs/ca.crt",
+  "tlscert" : "/etc/docker-latest/certs/server.crt",
+  "tlskey": "/etc/docker-latest/certs/server.key",
+  
