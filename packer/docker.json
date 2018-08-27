@@ -101,6 +101,11 @@
      "destination": "/tmp/swarm.sh"
     },
     {
+      "type": "file",
+      "source": "server-certs.sh",
+      "destination": "/tmp/server-certs.sh"
+    },
+    {
       "type": "shell",
       "scripts": [
         "docker-lvm.sh",

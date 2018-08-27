@@ -47,4 +47,10 @@ sudo chmod 750 /etc/docker-latest/swarm.sh
 sudo sed -i '/--authorization-plugin=rhel-push-plugin/ d' /usr/lib/systemd/system/docker-latest.service
 sudo sed -i '/LimitNPROC=1048576/ i LimitMEMLOCK=infinity' /usr/lib/systemd/system/docker-latest.service
 sudo systemctl daemon-reload
+
+#setup the server certificate script
+sudo mv -f /tmp/server-certs.sh /opt/consul/server-certs.sh
+sudo chown root:root /opt/consul/server-certs.sh
+sudo chmod 750 /opt/consul/server-certs.sh
+
 exit 0
