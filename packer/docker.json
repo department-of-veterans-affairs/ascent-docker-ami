@@ -77,6 +77,11 @@
     },
     {
       "type": "file",
+      "source": "templates",
+      "destination": "/tmp"
+    },
+    {
+      "type": "file",
       "source": "daemon.json",
       "destination": "/tmp/daemon.json"
     },
@@ -94,6 +99,11 @@
      "type": "file",
      "source": "swarm.sh",
      "destination": "/tmp/swarm.sh"
+    },
+    {
+      "type": "file",
+      "source": "server-certs.sh",
+      "destination": "/tmp/server-certs.sh"
     },
     {
       "type": "shell",
