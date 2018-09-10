@@ -111,7 +111,7 @@ resource "aws_autoscaling_group" "autoscaling_group_worker" {
 resource "aws_autoscaling_attachment" "asg_attachment_classic_lbs" {
   count                    = "${length(var.load_balancers)}"
   autoscaling_group_name = "${aws_autoscaling_group.autoscaling_group_worker.id}"
-  alb_target_group_arn   = "${element(var.load_balancers, count.index)}"
+  elb                    = "${element(var.load_balancers, count.index)}"
 }
 
 resource "aws_autoscaling_attachment" "asg_attachment_target_groups" {
