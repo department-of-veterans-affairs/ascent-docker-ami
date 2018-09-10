@@ -90,8 +90,6 @@ resource "aws_autoscaling_group" "autoscaling_group_worker" {
   desired_capacity     = "${var.worker_size}"
   termination_policies = ["${var.termination_policies}"]
 
-  target_group_arns         = ["${var.target_group_arns}"]
-  load_balancers            = ["${var.load_balancers}"]
   health_check_type         = "${var.health_check_type}"
   health_check_grace_period = "${var.health_check_grace_period}"
   wait_for_capacity_timeout = "${var.wait_for_capacity_timeout}"
@@ -104,6 +102,22 @@ resource "aws_autoscaling_group" "autoscaling_group_worker" {
     },
     "${var.tags}",
   ]
+}
+
+# ---------------------------------------------------------------------------------------------------------------------
+# ASSIGN LOAD BALANCERS TO ASG
+# ---------------------------------------------------------------------------------------------------------------------
+
+resource "aws_autoscaling_attachment" "asg_attachment_classic_lbs" {
+  count                    = "${length(var.load_balancers)}"
+  autoscaling_group_name = "${aws_autoscaling_group.autoscaling_group_worker.id}"
+  alb_target_group_arn   = "${element(var.load_balancers, count.index)}"
+}
+
+resource "aws_autoscaling_attachment" "asg_attachment_target_groups" {
+  count                    = "${length(var.target_group_arns)}"
+  autoscaling_group_name = "${aws_autoscaling_group.autoscaling_group_worker.id}"
+  alb_target_group_arn   = "${element(var.target_group_arns, count.index)}"
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
