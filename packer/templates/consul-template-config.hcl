@@ -14,18 +14,18 @@ vault {
 
 template {
   source = "/tmp/templates/ca.crt.tpl"
-  destination = "/var/lib/jenkins/docker-certs/ca.crt"
+  destination = "/etc/docker-latest/certs//ca.crt"
   perms = 0644
 }
 
 template {
   source = "/tmp/templates/server.crt.tpl"
-  destination = "/var/lib/jenkins/docker-certs/server.crt"
+  destination = "/etc/docker-latest/certs/server.crt"
   perms = 0644
 }
 
 template {
   source = "/tmp/templates/server.key.tpl"
-  destination = "/var/lib/jenkins/docker-certs/server.key"
+  destination = "/etc/docker-latest/certs/server.key"
   perms = 0644
 }
