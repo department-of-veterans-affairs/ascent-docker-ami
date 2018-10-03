@@ -46,7 +46,7 @@
       "tags": {
         "Name": "docker-consul-{{user `ami_version`}}"
       },
-      "snapshot_tags":
+      "snapshot_tags": 
       {
         "Name": "docker-consul-{{user `ami_version`}}"
       }
@@ -77,18 +77,8 @@
     },
     {
       "type": "file",
-      "source": "templates",
-      "destination": "/tmp"
-    },
-    {
-      "type": "file",
       "source": "daemon.json",
       "destination": "/tmp/daemon.json"
-    },
-    {
-      "type": "file",
-      "source": "daemon-expose-metrics.json",
-      "destination": "/tmp/daemon-expose-metrics.json"
     },
     {
      "type": "file",
@@ -99,11 +89,6 @@
      "type": "file",
      "source": "swarm.sh",
      "destination": "/tmp/swarm.sh"
-    },
-    {
-      "type": "file",
-      "source": "server-certs.sh",
-      "destination": "/tmp/server-certs.sh"
     },
     {
       "type": "shell",
